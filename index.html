@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>雾径试炼 · 忍术生存原型</title>
+<style>
+:root{color-scheme:dark;--ink:#e9e8d8;--dim:#a4aea3;--bg:#121916;--edge:#3b493f;--green:#cce795;--gold:#ffce8a;--rose:#ff937d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#222e25,var(--bg) 62%);color:var(--ink);font:15px/1.6 'PingFang SC','Microsoft YaHei',sans-serif}
+main{width:min(1140px,100% - 36px);margin:0 auto;padding:32px 0 22px}.label,dt,kbd,.code{font-family:ui-monospace,monospace}.label{letter-spacing:.16em;color:var(--green);font-size:12px}header{border-block:1px solid var(--edge);padding:18px 0 20px;margin:10px 0 18px;display:flex;justify-content:space-between;align-items:end;gap:16px}h1{font-size:clamp(32px,5vw,58px);font-family:'Songti SC','Noto Serif CJK SC',serif;line-height:1.08;margin:0 0 5px}header p,.hint,footer{margin:0;color:var(--dim)}.stamp{flex:none;color:var(--gold);border:1px solid #806a46;padding:4px 12px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:22px;align-items:start}.arena{position:relative;border:1px solid var(--edge);background:#17241c}.arena canvas{display:block;width:100%;height:auto;max-width:710px;margin:auto;cursor:crosshair}.status{padding:10px 12px;border-top:1px solid var(--edge);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.status span:last-child{color:var(--green)}aside section{border-top:1px solid var(--edge);padding:12px 0 14px}h2{margin:0 0 6px;font-size:15px;letter-spacing:.06em}p{margin:.3em 0 .65em}.buttons{display:flex;flex-wrap:wrap;gap:7px}button{font:inherit;border:1px solid var(--edge);background:#222d25;color:var(--ink);padding:6px 12px;cursor:pointer}button:hover{border-color:var(--green)}button.action{background:var(--green);color:#172018;border-color:var(--green);font-weight:bold}:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+dl{display:grid;grid-template-columns:1fr auto;gap:3px 10px;margin:8px 0}dt,dd{margin:0}dt{color:var(--dim)}dd{text-align:right;color:var(--green);font-variant-numeric:tabular-nums}kbd{color:var(--gold)}ol{margin:0;padding-left:20px;color:var(--dim);min-height:58px}.legend{font-size:13px}.legend b{color:var(--green)}footer{margin-top:14px;font-size:13px}a{color:var(--green)}
+@media(max-width:760px){main{padding-top:17px}.grid{grid-template-columns:1fr;gap:14px}header{align-items:start}.stamp{font-size:12px;padding:3px 6px}.arena canvas{max-width:min(100%,60vh)}}
+</style>
+</head>
+<body>
+<main>
+<div class="label">场地记录 / 01 · 机制验证</div>
+<header><div><h1>雾径试炼</h1><p>省一口查克拉，还是冒险先打？圈会替你催答案。</p></div><span class="stamp">本地 · 你与一个机器人</span></header>
+<div class="grid">
+<section class="arena" aria-label="试炼场地">
+  <canvas id="arena" width="720" height="720" tabindex="0" aria-label="俯视战场，用方向键移动，鼠标瞄准，空格施法"></canvas>
+  <div class="status"><span id="result" aria-live="polite">待开始</span><span id="ring-line">安全圈等候中</span></div>
+</section>
+<aside>
+  <section><h2>选择演练</h2>
+    <div class="buttons"><button class="action" id="normal">开局</button><button id="final">末圈演练</button><button id="pause">暂停</button></div>
+    <p class="hint">末圈演练从第 95 秒开始。标准对局最多两分钟。</p>
+  </section>
+  <section><h2>对局仪表</h2><dl>
+    <dt>我的生命</dt><dd id="hp">100</dd><dt>查克拉</dt><dd id="chakra">100</dd>
+    <dt>火球状态</dt><dd id="fire-state">可施放</dd><dt>对手生命</dt><dd id="bot-hp">100</dd>
+    <dt>圈半径</dt><dd id="radius">60.0</dd><dt>圈外伤害</dt><dd id="dps">5 / 秒</dd>
+  </dl></section>
+  <section><h2>操作</h2>
+    <p><kbd>W A S D</kbd> 或方向键移动，鼠标瞄准，左键或空格发火球。纯键盘时朝最后一次移动的方向施法。</p>
+    <p class="hint legend"><b>实线</b> 当前圈；<b>虚线</b> 下一圈；矩形是同时阻挡移动与火球的墙。</p>
+  </section>
+  <section><h2>最近判定</h2><ol id="events"><li>暂无</li></ol></section>
+</aside>
+</div>
+<footer>仅为二维本地规则样机，不代表三维美术、真人联机或八席功能已经完成。</footer>
+</main>
+<script type="module" src="./app.mjs"></script>
+</body>
+</html>
